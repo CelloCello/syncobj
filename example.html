@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Example</title>
+</head>
+<script src="syncobj.js"></script>
+<script>
+	function go() {
+	  var sync = new SyncObj(doneFunc);
+	  sync.addFunc(testFunc, {delay: 2000, str: "aaa"});
+	  sync.addFunc(testFunc, {delay: 1000, str: "bbb"});
+	  sync.addFunc(testFunc, {delay: 10000, str: "ccc"});
+	  sync.start();		
+	}
+
+	function sleep(milliseconds) {
+	  var start = new Date().getTime();
+	  for (var i = 0; i < 1e7; i++) {
+	    if ((new Date().getTime() - start) > milliseconds){
+	      break;
+	    }
+	  }
+	}
+
+  function testFunc(params, sCb) {
+	  console.log(params.str + " start");
+	  sleep(params.delay);
+	  console.log(params.str + " done");
+	  sCb();
+  }
+
+  function doneFunc() {
+	  console.log("all done");
+  }
+</script>
+<body>
+	<button onclick="go()">GOGO</button>
+</body>
+</html>
