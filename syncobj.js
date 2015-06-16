@@ -1,6 +1,6 @@
 /**
- * SyncObj
-
+ *	SyncObj
+ *	https://github.com/CelloCello/syncobj
  */
 (function () {
 
